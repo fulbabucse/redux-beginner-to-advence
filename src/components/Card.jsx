@@ -5,7 +5,6 @@ import { addToCart, removeCartProduct } from "../Redux/actions/productActions";
 
 const Card = ({ product }) => {
   const { pathname } = useLocation();
-
   const dispatch = useDispatch();
   const { title, thumbnail, description, price } = product;
 
