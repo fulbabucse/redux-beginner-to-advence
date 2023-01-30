@@ -1,28 +1,16 @@
-import axios from "axios";
 import React from "react";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { toggleBrands } from "../Redux/actions/filtersActions";
-import {
-  fetchProductsFailure,
-  fetchProductsSuccess,
-} from "../Redux/actions/productActions";
+import fetchProducts from "../Redux/thunk/fetchProducts";
 import Card from "./Card";
 
 const Home = () => {
   const dispatch = useDispatch();
-  const fetchProducts = async () => {
-    axios
-      .get("https://shopper-s-delight-server.vercel.app/products/all")
-      .then((data) => {
-        dispatch(fetchProductsSuccess(data.data.products));
-      })
-      .catch((err) => dispatch(fetchProductsFailure(err.name)));
-  };
 
   useEffect(() => {
-    fetchProducts();
-  }, []);
+    dispatch(fetchProducts());
+  }, [dispatch]);
 
   const state = useSelector((state) => state);
   const { brands } = state.filter.filters;
@@ -31,6 +19,14 @@ const Home = () => {
     return (
       <h1 className="text-xl text-center font-semibold text-gray-800">
         Loading...
+      </h1>
+    );
+  }
+
+  if (state?.products?.error) {
+    return (
+      <h1 className="text-xl text-center font-semibold text-red-500">
+        {state?.products?.error}
       </h1>
     );
   }
