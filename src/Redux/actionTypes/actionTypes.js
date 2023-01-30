@@ -3,3 +3,6 @@ export const FETCH_SUCCESS = "FETCH_SUCCESS";
 export const FETCH_FAILURE = "FETCH_FAILURE";
 export const ADD_TO_CART = "ADD_TO_CART";
 export const REMOVE_CART_PRODUCT = "REMOVE_CART_PRODUCT";
+
+// Filters
+export const TOGGLE_BRANDS = "TOGGLE_BRANDS";
