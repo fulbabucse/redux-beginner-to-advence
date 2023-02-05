@@ -1,34 +1,20 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { filterBrands } from "../features/filters/filtersSlice";
-import { getProducts } from "../features/products/productsSlice";
 import Card from "./Card";
 
 const Home = () => {
+  const [products, setProducts] = useState([]);
   const dispatch = useDispatch();
 
   const brands = useSelector((state) => state.filter.brands);
-  const { products, loading, error } = useSelector((state) => state.products);
 
   useEffect(() => {
-    dispatch(getProducts());
+    fetch("https://shopper-s-delight-server.vercel.app/products/all")
+      .then((res) => res.json())
+      .then((data) => setProducts(data.products))
+      .catch((err) => console.log(err));
   }, [dispatch]);
-
-  if (loading) {
-    return (
-      <h1 className="text-xl font-semibold text-center text-gray-800">
-        Loading...
-      </h1>
-    );
-  }
-
-  if (error) {
-    return (
-      <h1 className="text-xl font-semibold text-center text-gray-800">
-        {error}
-      </h1>
-    );
-  }
 
   return (
     <div>
