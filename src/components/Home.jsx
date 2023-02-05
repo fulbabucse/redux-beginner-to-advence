@@ -1,11 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { filterBrands } from "../features/filters/filtersSlice";
 import { getProducts } from "../features/products/productsSlice";
 import Card from "./Card";
 
 const Home = () => {
-  // const [products, setProducts] = useState([]);
   const dispatch = useDispatch();
 
   const brands = useSelector((state) => state.filter.brands);
@@ -13,7 +12,7 @@ const Home = () => {
 
   useEffect(() => {
     dispatch(getProducts());
-  }, []);
+  }, [dispatch]);
 
   if (loading) {
     return (

@@ -1,4 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { fetchProducts } from "./productsAPI";
 
 const initialState = {
   loading: false,
@@ -9,11 +10,8 @@ const initialState = {
 export const getProducts = createAsyncThunk(
   "products/getProducts",
   async () => {
-    const res = await fetch(
-      "https://shopper-s-delight-server.vercel.app/products/all"
-    );
-    const data = await res.json();
-    return data.products;
+    const products = fetchProducts();
+    return products;
   }
 );
 
